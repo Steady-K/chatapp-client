@@ -6,6 +6,7 @@ import MessageContainer from "./components/MessageContainer/MessageContainer";
 import { use } from "react";
 
 function App() {
+  const [rooms, setRooms] = useState([]);
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -15,6 +16,10 @@ function App() {
       setMessageList((prevState) => prevState.concat(message));
     });
     askUserName();
+    socket.on("rooms", (res) => {
+      setRooms(res);
+      console.log("rooms data from server:", res);
+    });
   }, []);
 
   const askUserName = () => {
