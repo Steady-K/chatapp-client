@@ -4,6 +4,7 @@ import socket from "./server";
 import InputField from "./components/InputField/InputField";
 import MessageContainer from "./components/MessageContainer/MessageContainer";
 import { use } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   const [rooms, setRooms] = useState([]);
@@ -40,16 +41,22 @@ function App() {
   };
 
   return (
-    <div>
-      <div className="App">
-        <MessageContainer messageList={messageList} user={user} />
-        <InputField
-          message={message}
-          setMessage={setMessage}
-          sendMessage={sendMessage}
-        />
-      </div>
-    </div>
+    // <div>
+    //   <div className="App">
+    //     <MessageContainer messageList={messageList} user={user} />
+    //     <InputField
+    //       message={message}
+    //       setMessage={setMessage}
+    //       sendMessage={sendMessage}
+    //     />
+    //   </div>
+    // </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<RoomListPage rooms={rooms} />} />
+        <Route path="/room/:id" element={<ChatPage user={user} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
